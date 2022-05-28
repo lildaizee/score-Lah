@@ -192,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 height: 50,
                                 width: 150,
                                 decoration: BoxDecoration(
-                                    color: Colors.deepOrangeAccent.shade400,
+                                    color: Colors.deepPurpleAccent.shade400,
                                     borderRadius: BorderRadius.circular(20)),
                                 child: FlatButton(
                                   onPressed: () {

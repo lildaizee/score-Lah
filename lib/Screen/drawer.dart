@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sporthall_booking_system/Screen/Admin/student.dart';
 import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
 import 'package:sporthall_booking_system/Screen/Booking/student_record.dart';
 import 'package:sporthall_booking_system/Screen/Homepage/home.dart';
@@ -22,7 +23,7 @@ class SideDrawer extends StatelessWidget {
           DrawerHeader(
             child: Center(
               child: Text(
-                'Sporthall Booking \n System',
+                'ScoreLah',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey.shade800, fontSize: 25),
               ),
@@ -81,6 +82,19 @@ class SideDrawer extends StatelessWidget {
                   context,
                   //MaterialPageRoute(builder: (context) => BookingHistory()),
                   MaterialPageRoute(builder: (context) => StudentRecord()),
+                ),
+              },
+            ),
+          ),
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.accessible_rounded),
+              title: Text('Student List'),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  //MaterialPageRoute(builder: (context) => BookingHistory()),
+                  MaterialPageRoute(builder: (context) => studentBody()),
                 ),
               },
             ),

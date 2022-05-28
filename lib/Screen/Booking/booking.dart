@@ -6,6 +6,8 @@ import 'package:sporthall_booking_system/Screen/AuthScreen/login.dart';
 import 'package:sporthall_booking_system/Screen/drawer.dart';
 import 'package:sporthall_booking_system/Services/auth_provider.dart';
 import 'booking_record.dart';
+import 'package:sporthall_booking_system/Model/Student.dart';
+//import 'package:sporthall_booking_system/Models/auth_provider.dart';
 
 class Booking extends StatefulWidget {
   @override
@@ -36,7 +38,7 @@ class _BookingState extends State<Booking> {
           ),
         ],
       ),
-      //body: BookingRecord(),
+      // body: BookingRecord(),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: <Widget>[
@@ -95,23 +97,23 @@ class _BookingState extends State<Booking> {
   }
 }
 
-class Student {
-  String id;
-  final String name;
-  final String age;
-  final String classroom;
+// class Student {
+//   String id;
+//   final String name;
+//   final String age;
+//   final String classroom;
 
-  Student({
-    this.id = '',
-    this.name,
-    this.age,
-    this.classroom,
-  });
+//   Student({
+//     this.id = '',
+//     this.name,
+//     this.age,
+//     this.classroom,
+//   });
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'age': age,
-        'classroom': classroom,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         'id': id,
+//         'name': name,
+//         'age': age,
+//         'classroom': classroom,
+//       };
+// }

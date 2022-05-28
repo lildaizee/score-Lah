@@ -38,36 +38,36 @@ class _StudentRecordState extends State<StudentRecord> {
           ),
         ],
       ),
-      body: FutureBuilder<Student?>(
-        future: readUser(),
-        builder: (context,snapshot){
-          if (snapshot.hasData){
-            final user = snapshot.data;
-            return student == null
-            ? Center(child: Text('No Student')): buildUser(student);
-          }
-        },
-        ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Booking()),
-          ),
-        },
-        backgroundColor: Colors.blueAccent,
-        child: const Icon(Icons.add),
-      ),
+      //   body: FutureBuilder<Student?>(
+      //     future: readUser(),
+      //     builder: (context,snapshot){
+      //       if (snapshot.hasData){
+      //         final user = snapshot.data;
+      //         return student == null
+      //         ? Center(child: Text('No Student')): buildUser(student);
+      //       }
+      //     },
+      //     ),
+      //   floatingActionButton: FloatingActionButton(
+      //     onPressed: () => {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => Booking()),
+      //       ),
+      //     },
+      //     backgroundColor: Colors.blueAccent,
+      //     child: const Icon(Icons.add),
+      //   ),
       drawer: SideDrawer(),
     );
   }
 }
 
-Future<Student?> readUser() async{
-  final docUser = FirebaseFirestore.instance.collection('Student').doc('my-id');
-  final snapshot = await docUser.get();
+// Future<Student?> readUser() async{
+//   final docUser = FirebaseFirestore.instance.collection('Student').doc('my-id');
+//   final snapshot = await docUser.get();
 
-  if(snapshot.exists){
-    return Student.fromJson(snapshot.data()!);
-  }
-}
+//   if(snapshot.exists){
+//     return Student.fromJson(snapshot.data()!);
+//   }
+// }

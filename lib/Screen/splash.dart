@@ -30,7 +30,7 @@ class _SplashState extends State<Splash> {
         seconds: 5,
         navigateAfterSeconds: new LoginPage(),
         title: new Text(
-          'Welcome to \n Sporthall Booking \n Management Application',
+          'Welcome to \n ScoreLah Application',
           textAlign: TextAlign.center,
           style: new TextStyle(
               fontWeight: FontWeight.bold,

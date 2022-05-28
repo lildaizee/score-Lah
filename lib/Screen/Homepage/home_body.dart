@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sporthall_booking_system/Screen/Sporthall/sporthall.dart';
 import 'package:sporthall_booking_system/Screen/CollegeCourt/collegeCourt.dart';
 import 'package:sporthall_booking_system/Screen/Field/field.dart';
+import 'package:sporthall_booking_system/Screen/InDevelopment/Maintenance.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.class_outlined, size: 60),
+                leading: Icon(Icons.class__outlined, size: 60),
                 title: Text('En Shakespear',
                     style: TextStyle(
                         color: Colors.black54,
@@ -67,7 +68,9 @@ class _DashboardState extends State<Dashboard> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Sporthall()),
+                        // MaterialPageRoute(builder: (context) => Sporthall()),
+                        MaterialPageRoute(
+                            builder: (context) => UnderMaintenance()),
                       );
                     },
                   ),
@@ -93,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const ListTile(
-                leading: Icon(Icons.class_outlined, size: 60),
+                leading: Icon(Icons.class__outlined, size: 60),
                 title: Text('En Einstein',
                     style: TextStyle(
                         color: Colors.black54,
@@ -116,7 +119,9 @@ class _DashboardState extends State<Dashboard> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CollegeCourt()),
+                        //MaterialPageRoute(builder: (context) => CollegeCourt()),
+                        MaterialPageRoute(
+                            builder: (context) => UnderMaintenance()),
                       );
                     },
                   ),
@@ -142,7 +147,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const ListTile(
-                leading: Icon(Icons.class_outlined, size: 60),
+                leading: Icon(Icons.class__outlined, size: 60),
                 title: Text('En Owen',
                     style: TextStyle(
                         color: Colors.black54,
@@ -165,7 +170,9 @@ class _DashboardState extends State<Dashboard> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Field()),
+                        //MaterialPageRoute(builder: (context) => Field()),
+                        MaterialPageRoute(
+                            builder: (context) => UnderMaintenance()),
                       );
                     },
                   ),

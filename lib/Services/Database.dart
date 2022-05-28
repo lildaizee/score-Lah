@@ -2,12 +2,15 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sporthall_booking_system/Model/FieldBooking.dart';
+import 'package:sporthall_booking_system/Model/Student.dart';
 import 'package:sporthall_booking_system/Model/collegeCourtBooking.dart';
 import 'package:sporthall_booking_system/Model/Users.dart';
 import 'package:sporthall_booking_system/Model/Profile.dart';
 import 'package:sporthall_booking_system/Model/sporthallBooking.dart';
 // ignore: unused_import
 import 'package:sporthall_booking_system/Screen/Admin/collegeCourtBooking.dart';
+import 'package:sporthall_booking_system/Screen/Admin/studentList.dart';
+import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
 
 class DatabaseService {
   final String uid;
@@ -29,6 +32,9 @@ class DatabaseService {
 
   final CollectionReference FieldHistory =
       FirebaseFirestore.instance.collection('BookingField');
+
+  final CollectionReference students =
+      FirebaseFirestore.instance.collection('Student');
 
   Future updateUserData(
       String fullname, String username, String contact) async {
@@ -102,6 +108,20 @@ class DatabaseService {
 
   Stream<List<FieldBooking>> get field {
     return FieldHistory.snapshots().map(_fieldListFromSnapshot);
+  }
+
+  //Student list
+  List<Student> _studentListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Student(
+          name: doc.data()['name'] ?? '',
+          age: doc.data()['age'] ?? '',
+          classroom: doc.data()['classroom'] ?? '');
+    }).toList();
+  }
+
+  Stream<List<Student>> get studentsList {
+    return students.snapshots().map(_studentListFromSnapshot);
   }
 
   Future<DocumentSnapshot> getUserData() async {

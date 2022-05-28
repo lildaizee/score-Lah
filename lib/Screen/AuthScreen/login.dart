@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Center(
                           child: Container(
                             child: new Text(
-                              'Sporthall Booking \n Application',
+                              'ScoreLah \n Application',
                               textAlign: TextAlign.center,
                               style: new TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 50,
                         width: 150,
                         decoration: BoxDecoration(
-                            color: Colors.deepOrangeAccent.shade400,
+                            color: Colors.deepPurpleAccent.shade400,
                             borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
                           onPressed: () {
@@ -168,7 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 'Forgot Password',
                                 style: TextStyle(
-                                    color: Colors.red.shade700, fontSize: 17),
+                                    color: Colors.deepPurpleAccent.shade700,
+                                    fontSize: 17),
                               ),
                             ),
                             FlatButton(
@@ -182,7 +183,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 'Register Account',
                                 style: TextStyle(
-                                    color: Colors.red.shade700, fontSize: 17),
+                                    color: Colors.deepPurpleAccent.shade700,
+                                    fontSize: 17),
                               ),
                             )
                           ],
