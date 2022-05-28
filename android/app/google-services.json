@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "267925856593",
+    "project_id": "sporthallbookingsystem-a9cd6",
+    "storage_bucket": "sporthallbookingsystem-a9cd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267925856593:android:173a75fa2bc0ef94deb370",
+        "android_client_info": {
+          "package_name": "com.android.SBS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267925856593-qgpai2t1uabuc91b6anr0otb34346ufd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4S2e0A-Fa7NOCrIfKxITc_1DomLc7yyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267925856593-qgpai2t1uabuc91b6anr0otb34346ufd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
