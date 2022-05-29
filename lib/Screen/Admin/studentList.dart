@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sporthall_booking_system/Model/Student.dart';
 import 'package:sporthall_booking_system/Screen/Admin/studentTile.dart';
+import 'package:sporthall_booking_system/Screen/Booking/student_record.dart';
 
+// ignore: camel_case_types
 class studentList extends StatefulWidget {
   @override
   _StudentListState createState() => _StudentListState();
@@ -24,6 +26,9 @@ class _StudentListState extends State<studentList> {
         itemBuilder: (context, index) {
           if (index != null) {
             return StudentTile(student: students[index]);
+            //return studentList();
+          } else {
+            return studentList();
           }
         },
       );
