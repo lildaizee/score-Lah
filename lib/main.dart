@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       value: AuthClass().user,
       initialData: Users(),
       child: MaterialApp(
-        theme: ThemeData(backgroundColor: Colors.lightBlue),
+        theme: ThemeData(backgroundColor: Colors.purple),
         home: Home(),
       ),
     );
