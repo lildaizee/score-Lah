@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sporthall_booking_system/Screen/Admin/student.dart';
 import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
+import 'package:sporthall_booking_system/Screen/Booking/display_student.dart';
 import 'package:sporthall_booking_system/Screen/Booking/student_record.dart';
 import 'package:sporthall_booking_system/Screen/Homepage/home.dart';
 import 'UserProfile/profile.dart';
@@ -81,7 +82,7 @@ class SideDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   //MaterialPageRoute(builder: (context) => BookingHistory()),
-                  MaterialPageRoute(builder: (context) => StudentRecord()),
+                  MaterialPageRoute(builder: (context) => DisplayStudent()),
                 ),
               },
             ),
