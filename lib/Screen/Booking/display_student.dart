@@ -195,7 +195,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                                 );
                               },
                               child: Text(
-                                'View Details',
+                                'Delete',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               ),
@@ -372,7 +372,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                                 );
                               },
                               child: Text(
-                                'View Details',
+                                'Delete',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               ),
@@ -404,7 +404,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                     children: <Widget>[
                       ListTile(
                         leading: Icon(Icons.article_outlined, size: 60),
-                        title: Text('3. Ilya Binti Rusdi',
+                        title: Text('3. Ali',
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,
@@ -433,7 +433,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           title: Text(
-                                            'Delete Ilya',
+                                            'Delete Ali',
                                             textAlign: TextAlign.center,
                                           ),
                                           content: Text(
@@ -513,12 +513,12 @@ class _DisplayStudentState extends State<DisplayStudent> {
                   children: <Widget>[
                     ListTile(
                       leading: Icon(Icons.article_outlined, size: 60),
-                      title: Text('3. Ilya Binti Rusdi',
+                      title: Text('3. Ali',
                           style: TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.bold,
                               fontSize: 18)),
-                      subtitle: Text('\nNo data for Ilya Rusdi',
+                      subtitle: Text('\nNo data for Ali',
                           style:
                               TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
@@ -543,7 +543,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                                 );
                               },
                               child: Text(
-                                'View Details',
+                                'Delete',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               ),
