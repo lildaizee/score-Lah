@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> {
           style: new TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24.0,
-              color: Colors.blueGrey),
+              color: Colors.blueGrey[600]),
         ),
         image: new Image.asset('Images/Logo.png',
             height: 400, width: 350, scale: 1.0),
