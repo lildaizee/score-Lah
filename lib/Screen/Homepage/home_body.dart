@@ -148,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
             children: <Widget>[
               const ListTile(
                 leading: Icon(Icons.class__outlined, size: 60),
-                title: Text('En Owen',
+                title: Text('En Owens',
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
