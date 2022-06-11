@@ -35,12 +35,12 @@ class _AdminBodyState extends State<AdminBody> {
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.meeting_room, size: 60),
-                title: Text('Sport Hall',
+                title: Text('En Owens',
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
-                subtitle: Text('View Sporthall booking list !',
+                subtitle: Text('View Class En Owens !',
                     style: TextStyle(color: Colors.black54, fontSize: 16)),
               ),
               Padding(
@@ -85,12 +85,12 @@ class _AdminBodyState extends State<AdminBody> {
             children: <Widget>[
               const ListTile(
                 leading: Icon(Icons.meeting_room_sharp, size: 60),
-                title: Text('College Court',
+                title: Text('En Einstein',
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
-                subtitle: Text('View college court booking list !',
+                subtitle: Text('View Class En Einstein !',
                     style: TextStyle(color: Colors.black54, fontSize: 16)),
               ),
               Padding(
@@ -135,12 +135,12 @@ class _AdminBodyState extends State<AdminBody> {
             children: <Widget>[
               const ListTile(
                 leading: Icon(Icons.meeting_room_sharp, size: 60),
-                title: Text('Field',
+                title: Text('En Shakespear',
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
-                subtitle: Text('View field booking list !',
+                subtitle: Text('View Class En Shakespear',
                     style: TextStyle(color: Colors.black54, fontSize: 16)),
               ),
               Padding(
