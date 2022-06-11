@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
     //   }
     // });
     return new SplashScreen(
-        seconds: 5,
+        seconds: 3,
         navigateAfterSeconds: new LoginPage(),
         title: new Text(
           'Welcome to \n ScoreLah Application',

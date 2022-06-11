@@ -111,6 +111,17 @@ class SideDrawer extends StatelessWidget {
                       ),
                     }),
           ),
+          Card(
+            child: ListTile(
+                leading: Icon(Icons.assignment_ind_outlined),
+                title: Text('Update Status'),
+                onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Booking()),
+                      ),
+                    }),
+          ),
           // Padding(
           //   padding: const EdgeInsets.only(
           //       left: 60.0, right: 60.0, top: 300, bottom: 40),
