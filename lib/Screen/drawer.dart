@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sporthall_booking_system/Screen/Admin/status.dart';
 import 'package:sporthall_booking_system/Screen/Admin/student.dart';
 import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
+import 'package:sporthall_booking_system/Screen/Booking/display_student.dart';
 import 'package:sporthall_booking_system/Screen/Booking/student_record.dart';
 import 'package:sporthall_booking_system/Screen/Homepage/home.dart';
 import 'UserProfile/profile.dart';
@@ -81,24 +83,37 @@ class SideDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   //MaterialPageRoute(builder: (context) => BookingHistory()),
-                  MaterialPageRoute(builder: (context) => StudentRecord()),
+                  MaterialPageRoute(builder: (context) => DisplayStudent()),
                 ),
               },
             ),
           ),
           Card(
             child: ListTile(
-              leading: Icon(Icons.accessible_rounded),
-              title: Text('Student List'),
+              leading: Icon(Icons.receipt_rounded),
+              title: Text('Add Status'),
               onTap: () => {
                 Navigator.push(
                   context,
                   //MaterialPageRoute(builder: (context) => BookingHistory()),
-                  MaterialPageRoute(builder: (context) => studentBody()),
+                  MaterialPageRoute(builder: (context) => addStatus()),
                 ),
               },
             ),
           ),
+          // Card(
+          //   child: ListTile(
+          //     leading: Icon(Icons.accessible_rounded),
+          //     title: Text('Student List'),
+          //     onTap: () => {
+          //       Navigator.push(
+          //         context,
+          //         //MaterialPageRoute(builder: (context) => BookingHistory()),
+          //         MaterialPageRoute(builder: (context) => studentBody()),
+          //       ),
+          //     },
+          //   ),
+          // ),
           Card(
             child: ListTile(
                 leading: Icon(Icons.assignment_ind_outlined),

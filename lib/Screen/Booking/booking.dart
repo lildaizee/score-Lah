@@ -48,7 +48,7 @@ class _BookingState extends State<Booking> {
               hintText: 'Name',
               border: OutlineInputBorder(),
             ),
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.text,
           ),
           const SizedBox(height: 24),
           TextField(
