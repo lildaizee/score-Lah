@@ -10,6 +10,7 @@ import 'package:sporthall_booking_system/Screen/Field/field.dart';
 import 'package:sporthall_booking_system/Screen/Sporthall/updateSporthall.dart';
 import 'package:sporthall_booking_system/Screen/Field/updateField.dart';
 import 'package:sporthall_booking_system/Screen/drawer.dart';
+import 'package:sporthall_booking_system/Screen/widgets/app_bar.dart';
 import 'package:sporthall_booking_system/Services/auth_provider.dart';
 import 'package:sporthall_booking_system/Screen/AuthScreen/login.dart';
 
@@ -27,21 +28,8 @@ class _DisplayStudentState extends State<DisplayStudent> {
   Widget build(BuildContext context) {
     //return SafeArea(
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Student Record"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              //sign Out User
-              AuthClass().signOut();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                  (route) => false);
-            },
-          ),
-        ],
+      appBar: CustomAppBar(
+        title: 'Student Record',
       ),
       //children: Column(children: <Widget>[
       body: Column(children: <Widget>[

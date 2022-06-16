@@ -2,11 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sporthall_booking_system/Screen/AuthScreen/login.dart';
-import 'package:sporthall_booking_system/Screen/drawer.dart';
-import 'package:sporthall_booking_system/Services/auth_provider.dart';
-import 'booking_record.dart';
 import 'package:sporthall_booking_system/Model/Student.dart';
+import 'package:sporthall_booking_system/Screen/drawer.dart';
+import 'package:sporthall_booking_system/Screen/widgets/app_bar.dart';
 //import 'package:sporthall_booking_system/Models/auth_provider.dart';
 
 class Booking extends StatefulWidget {
@@ -22,22 +20,7 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Student"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              //sign Out User
-              AuthClass().signOut();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                  (route) => false);
-            },
-          ),
-        ],
-      ),
+      appBar: CustomAppBar(title: 'Add Student'),
       // body: BookingRecord(),
       body: ListView(
         padding: EdgeInsets.all(16),
