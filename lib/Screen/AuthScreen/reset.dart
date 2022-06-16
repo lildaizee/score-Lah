@@ -46,7 +46,7 @@ class _ResetPageState extends State<ResetPage> {
                         /*decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(50.0)),*/
-                        child: Image.asset('Images/Logo.jfif')),
+                        child: Image.asset('assets/images/Logo.jfif')),
                   ),
                 ),
                 Padding(
@@ -184,7 +184,7 @@ class _ResetPageState extends State<ResetPage> {
     //                       /*decoration: BoxDecoration(
     //                                       color: Colors.red,
     //                                       borderRadius: BorderRadius.circular(50.0)),*/
-    //                       child: Image.asset('Images/Logo.png')),
+    //                       child: Image.asset('assets/images/Logo.png')),
     //                 ),
     //               ),
     //               FlatButton(

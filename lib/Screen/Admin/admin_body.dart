@@ -18,7 +18,9 @@ class _AdminBodyState extends State<AdminBody> {
           padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
           child: Center(
             child: Container(
-                width: 500, height: 150, child: Image.asset('Images/Logo.png')),
+                width: 500,
+                height: 150,
+                child: Image.asset('assets/images/Logo.png')),
           ),
         ),
       ),

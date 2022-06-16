@@ -57,7 +57,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 /*decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(50.0)),*/
-                                child: Image.asset('Images/Profile.png')),
+                                child:
+                                    Image.asset('assets/images/Profile.png')),
                           ),
                         ),
 

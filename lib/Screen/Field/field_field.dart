@@ -62,7 +62,8 @@ class _FieldFieldState extends State<FieldField> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Form(
-      autovalidateMode: AutovalidateMode.always, key: _formKeyValue,
+      autovalidateMode: AutovalidateMode.always,
+      key: _formKeyValue,
       child: new ListView(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         children: <Widget>[
@@ -77,7 +78,7 @@ class _FieldFieldState extends State<FieldField> {
                     child: Container(
                         width: 400,
                         height: 200,
-                        child: Image.asset('Images/Field_2.png')),
+                        child: Image.asset('assets/images/Field_2.png')),
                   ),
                 ),
               ],

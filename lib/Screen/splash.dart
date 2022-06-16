@@ -37,7 +37,7 @@ class _SplashState extends State<Splash> {
               fontSize: 24.0,
               color: Colors.blueGrey[600]),
         ),
-        image: new Image.asset('Images/Logo.png',
+        image: new Image.asset('assets/images/Logo.png',
             height: 400, width: 350, scale: 1.0),
         backgroundColor: Colors.white,
         styleTextUnderTheLoader: new TextStyle(),

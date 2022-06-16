@@ -62,7 +62,8 @@ class _CollegeCourtCourtState extends State<CollegeCourtCourt> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Form(
-      autovalidateMode: AutovalidateMode.always, key: _formKeyValue,
+      autovalidateMode: AutovalidateMode.always,
+      key: _formKeyValue,
       child: new ListView(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         children: <Widget>[
@@ -77,7 +78,7 @@ class _CollegeCourtCourtState extends State<CollegeCourtCourt> {
                     child: Container(
                         width: 400,
                         height: 200,
-                        child: Image.asset('Images/KTF.png')),
+                        child: Image.asset('assets/images/KTF.png')),
                   ),
                 ),
               ],

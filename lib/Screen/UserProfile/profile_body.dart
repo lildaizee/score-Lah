@@ -33,7 +33,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                       child: Container(
                           width: 700,
                           height: 250,
-                          child: Image.asset('Images/Profile.png')),
+                          child: Image.asset('assets/images/Profile.png')),
                     ),
                   ),
                   Padding(

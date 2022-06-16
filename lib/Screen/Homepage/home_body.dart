@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sporthall_booking_system/Screen/Sporthall/sporthall.dart';
-import 'package:sporthall_booking_system/Screen/CollegeCourt/collegeCourt.dart';
-import 'package:sporthall_booking_system/Screen/Field/field.dart';
 import 'package:sporthall_booking_system/Screen/InDevelopment/Maintenance.dart';
 
 class Dashboard extends StatefulWidget {
@@ -29,7 +26,9 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
           child: Center(
             child: Container(
-                width: 500, height: 150, child: Image.asset('Images/Logo.png')),
+                width: 500,
+                height: 150,
+                child: Image.asset('assets/images/Logo.png')),
           ),
         ),
       ),
@@ -45,7 +44,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.class__outlined, size: 60),
+                leading: Icon(Icons.class_outlined, size: 60),
                 title: Text('En Shakespear',
                     style: TextStyle(
                         color: Colors.black54,
@@ -96,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const ListTile(
-                leading: Icon(Icons.class__outlined, size: 60),
+                leading: Icon(Icons.class_outlined, size: 60),
                 title: Text('En Einstein',
                     style: TextStyle(
                         color: Colors.black54,
@@ -147,7 +146,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const ListTile(
-                leading: Icon(Icons.class__outlined, size: 60),
+                leading: Icon(Icons.class_outlined, size: 60),
                 title: Text('En Owens',
                     style: TextStyle(
                         color: Colors.black54,

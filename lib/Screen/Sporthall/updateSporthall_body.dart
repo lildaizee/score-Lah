@@ -71,7 +71,8 @@ class _UpdateSporthallBookingState extends State<UpdateSporthallBooking> {
                   child: CircularProgressIndicator(),
                 );
               return Form(
-                autovalidateMode: AutovalidateMode.always, key: _formKeyValue,
+                autovalidateMode: AutovalidateMode.always,
+                key: _formKeyValue,
                 child: new ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   children: <Widget>[
@@ -86,7 +87,8 @@ class _UpdateSporthallBookingState extends State<UpdateSporthallBooking> {
                               child: Container(
                                   width: 300,
                                   height: 250,
-                                  child: Image.asset('Images/Sporthall_2.png')),
+                                  child: Image.asset(
+                                      'assets/images/Sporthall_2.png')),
                             ),
                           ),
                         ],

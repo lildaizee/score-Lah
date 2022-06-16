@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sporthall_booking_system/Screen/splash.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sporthall_booking_system/Services/auth_provider.dart';
 import 'package:sporthall_booking_system/Model/Users.dart';
-import 'package:sporthall_booking_system/database.dart';
+import 'package:sporthall_booking_system/Screen/splash.dart';
+import 'package:sporthall_booking_system/Services/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +18,7 @@ class App extends StatelessWidget {
       value: AuthClass().user,
       initialData: Users(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(backgroundColor: Colors.purple[50]),
         home: Home(),
       ),

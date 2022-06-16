@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sporthall_booking_system/Screen/AuthScreen/register.dart';
+import 'package:sporthall_booking_system/Model/Users.dart';
 //import 'package:sporthall_booking_system/Services/DatabaseManager.dart';
 import 'package:sporthall_booking_system/Services/Database.dart';
-import 'package:sporthall_booking_system/Model/Users.dart';
 
 class AuthClass {
   final FirebaseAuth _auth = FirebaseAuth.instance;

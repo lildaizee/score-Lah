@@ -68,7 +68,8 @@ class _SporthallHallState extends State<SporthallHall> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Form(
-      autovalidateMode: AutovalidateMode.always, key: _formKeyValue,
+      autovalidateMode: AutovalidateMode.always,
+      key: _formKeyValue,
       child: new ListView(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         children: <Widget>[
@@ -84,7 +85,7 @@ class _SporthallHallState extends State<SporthallHall> {
                     child: Container(
                         width: 350,
                         height: 200,
-                        child: Image.asset('Images/Sporthall_1.png')),
+                        child: Image.asset('assets/images/Sporthall_1.png')),
                   ),
                 ),
               ],

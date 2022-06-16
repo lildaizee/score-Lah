@@ -86,7 +86,8 @@ class _UpdateFieldBookingState extends State<UpdateFieldBooking> {
                               child: Container(
                                   width: 300,
                                   height: 250,
-                                  child: Image.asset('Images/Field_3.png')),
+                                  child:
+                                      Image.asset('assets/images/Field_3.png')),
                             ),
                           ),
                         ],

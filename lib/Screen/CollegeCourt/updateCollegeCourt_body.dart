@@ -86,7 +86,7 @@ class _UpdateCollegeCourtBookingState extends State<UpdateCollegeCourtBooking> {
                               child: Container(
                                   width: 300,
                                   height: 250,
-                                  child: Image.asset('Images/KTDI.png')),
+                                  child: Image.asset('assets/images/KTDI.png')),
                             ),
                           ),
                         ],
