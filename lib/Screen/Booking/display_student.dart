@@ -112,6 +112,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                                                             },
                                                             style: ElevatedButton.styleFrom(
                                                               primary: Colors.grey,
+                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                                             ),
                                                             child: Text('Cancel'),
                                                           ),
@@ -126,9 +127,7 @@ class _DisplayStudentState extends State<DisplayStudent> {
                                                                 Navigator.of(newcontext).pop();
                                                               });
                                                             },
-                                                            style: ElevatedButton.styleFrom(
-                                                              primary: Colors.red,
-                                                            ),
+                                                            style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                                                             child: Text('Delete'),
                                                           ),
                                                         ],

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
@@ -307,6 +306,9 @@ class _StatusScreenState extends State<StatusScreen> {
                                                     Gap(2),
                                                     Text(
                                                       comment.timeCreated,
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
                                                     )
                                                   ],
                                                 ),
