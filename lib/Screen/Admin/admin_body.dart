@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sporthall_booking_system/Screen/Admin/sporthallBooking.dart';
 import 'package:sporthall_booking_system/Screen/Admin/collegeCourtBooking.dart';
 import 'package:sporthall_booking_system/Screen/Admin/fieldBooking.dart';
+import 'package:sporthall_booking_system/Screen/StudentClass/StudentClassScreen.dart';
 
 class AdminBody extends StatefulWidget {
   @override
@@ -19,10 +20,7 @@ class _AdminBodyState extends State<AdminBody> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                 child: Center(
-                  child: Container(
-                      width: 500,
-                      height: 150,
-                      child: Image.asset('assets/images/Logo.png')),
+                  child: Container(width: 500, height: 150, child: Image.asset('assets/images/Logo.png')),
                 ),
               ),
             ),
@@ -39,31 +37,24 @@ class _AdminBodyState extends State<AdminBody> {
                   children: <Widget>[
                     ListTile(
                       leading: Icon(Icons.meeting_room, size: 60),
-                      title: Text('En Owens',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('View Class En Owens !',
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
+                      title: Text('En Owens', style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text('View Class En Owens !', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Container(
                         height: 30,
                         width: 120,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
-                          child: const Text('View Record',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('View Record', style: TextStyle(color: Colors.white)),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SporthallBody()),
+                                  builder: (context) => StudentClassScreen(
+                                        age: '6',
+                                      )),
                             );
                           },
                         ),
@@ -90,31 +81,24 @@ class _AdminBodyState extends State<AdminBody> {
                   children: <Widget>[
                     const ListTile(
                       leading: Icon(Icons.meeting_room_sharp, size: 60),
-                      title: Text('En Einstein',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('View Class En Einstein !',
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
+                      title: Text('En Einstein', style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text('View Class En Einstein !', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Container(
                         height: 30,
                         width: 120,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
-                          child: const Text('View Record',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('View Record', style: TextStyle(color: Colors.white)),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => collegeCourtBody()),
+                                  builder: (context) => StudentClassScreen(
+                                        age: '5',
+                                      )),
                             );
                           },
                         ),
@@ -141,31 +125,24 @@ class _AdminBodyState extends State<AdminBody> {
                   children: <Widget>[
                     const ListTile(
                       leading: Icon(Icons.meeting_room_sharp, size: 60),
-                      title: Text('En Shakespear',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('View Class En Shakespear',
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
+                      title: Text('En Shakespear', style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text('View Class En Shakespear', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Container(
                         height: 30,
                         width: 120,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
-                          child: const Text('View Record',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('View Record', style: TextStyle(color: Colors.white)),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FieldBody()),
+                                  builder: (context) => StudentClassScreen(
+                                        age: '4',
+                                      )),
                             );
                           },
                         ),
