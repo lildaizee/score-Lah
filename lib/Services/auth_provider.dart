@@ -1,58 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sporthall_booking_system/Model/Users.dart';
-//import 'package:sporthall_booking_system/Services/DatabaseManager.dart';
 import 'package:sporthall_booking_system/Services/Database.dart';
 
-class AuthClass {
+class AuthClass extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  UserData user;
 
-  // Stream<String> get onAuthStateChanged =>
-  //   _auth.onAuthStateChanged.map(
-  //         (User user) => user?.uid,
-  //   );
+  initialize() {}
 
-  Users _userFromFirebaseUser(User user) {
-    return user != null ? Users(userid: user.uid) : null;
-  }
+  UserData get getUser => user;
 
-  Stream<Users> get user {
-    return _auth.authStateChanges().map(_userFromFirebaseUser);
+  Stream<User> get authStateChange {
+    return _auth.authStateChanges();
   }
 
   //Get UserID
-  Future<String> getCurrentUserID() async {
-    String userid = _auth.currentUser.uid;
-    return userid;
+  String getCurrentUserID() {
+    return _auth.currentUser.uid;
   }
 
   //Get Current User
   Future getCurrentUser() async {
-    return await _auth.currentUser;
+    return _auth.currentUser;
   }
 
-  // //Create user obj based on FirebaseUser
-  // User _userFromFireBaseUser(User user) {
-  //   return user != null ? User(uid: user.uid) : null;
-  // }
-
-  // //auth change user stream
-  // Stream<User> get user {
-  //   return _auth.authStateChanges()
-  //   .map(_userFromFireBaseUser);
-  // }
-
   //Create Account
-  Future createAccount(String email, String password, String fullname,
-      String username, String contact) async {
+  Future createAccount(String email, String password, String fullname, String username, String contact, String usertype) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
-
-      // await DatabaseManager()
-      //     .createUserData(fullname, username, contact, user.uid);
-      await DatabaseService(uid: user.uid)
-          .updateUserData(fullname, username, contact);
+      await DatabaseService(uid: user.uid).updateUserData(fullname, username, contact, usertype, email, user.uid);
 
       return user;
     } catch (e) {
@@ -61,12 +39,10 @@ class AuthClass {
     }
   }
 
-  //Create Booking
-
 //sign in user
   Future<String> signIN({String email, String password}) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) => loadLoggedinUser());
       if (email != null && email == 'admin@gmail.com') {
         return "Admin";
       } else {
@@ -82,6 +58,15 @@ class AuthClass {
   }
 
   //sign in admin
+  loadLoggedinUser() async {
+    if (getCurrentUser() != null) {
+      await DatabaseService().userProfile.doc(getCurrentUserID()).get().then((value) {
+        user = UserData().userFromFirebase(value);
+      });
+      print('hi saya data ' + user.contact);
+      notifyListeners();
+    }
+  }
 
   //Reset Password
   Future<String> resetPassword({String email}) async {

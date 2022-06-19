@@ -51,8 +51,7 @@ class _BookingState extends State<Booking> {
             ),
             //keyboardType: TextInputType.numberWithOptions(),
           ),
-          const SizedBox(height: 24),
-          const SizedBox(height: 32),
+          
           ElevatedButton(
               onPressed: () {
                 final student = Student(
@@ -60,7 +59,6 @@ class _BookingState extends State<Booking> {
                   age: controllerAge.text,
                   classroom: controllerClassroom.text,
                 );
-
                 createUser(student);
                 Navigator.pop(context);
               },
@@ -79,24 +77,3 @@ class _BookingState extends State<Booking> {
     await docUser.set(json);
   }
 }
-
-// class Student {
-//   String id;
-//   final String name;
-//   final String age;
-//   final String classroom;
-
-//   Student({
-//     this.id = '',
-//     this.name,
-//     this.age,
-//     this.classroom,
-//   });
-
-//   Map<String, dynamic> toJson() => {
-//         'id': id,
-//         'name': name,
-//         'age': age,
-//         'classroom': classroom,
-//       };
-// }

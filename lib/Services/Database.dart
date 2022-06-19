@@ -2,15 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sporthall_booking_system/Model/FieldBooking.dart';
-import 'package:sporthall_booking_system/Model/Student.dart';
-import 'package:sporthall_booking_system/Model/collegeCourtBooking.dart';
-import 'package:sporthall_booking_system/Model/Users.dart';
 import 'package:sporthall_booking_system/Model/Profile.dart';
+import 'package:sporthall_booking_system/Model/Student.dart';
+import 'package:sporthall_booking_system/Model/Users.dart';
+import 'package:sporthall_booking_system/Model/collegeCourtBooking.dart';
 import 'package:sporthall_booking_system/Model/sporthallBooking.dart';
 // ignore: unused_import
 import 'package:sporthall_booking_system/Screen/Admin/collegeCourtBooking.dart';
-import 'package:sporthall_booking_system/Screen/Admin/studentList.dart';
-import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
 
 class DatabaseService {
   final String uid;
@@ -18,49 +16,40 @@ class DatabaseService {
 
   List<UserData> users = [];
   //final CollectionReference user = Firestore.instance.collection("User");
-  final CollectionReference userProfile =
-      FirebaseFirestore.instance.collection('Users');
+  final CollectionReference userProfile = FirebaseFirestore.instance.collection('Users');
 
-  final CollectionReference sporthallList =
-      FirebaseFirestore.instance.collection('Sporthall');
+  final CollectionReference sporthallList = FirebaseFirestore.instance.collection('Sporthall');
 
-  final CollectionReference sporthallHistory =
-      FirebaseFirestore.instance.collection('BookingSporthall');
+  final CollectionReference sporthallHistory = FirebaseFirestore.instance.collection('BookingSporthall');
 
-  final CollectionReference collegeCourtHistory =
-      FirebaseFirestore.instance.collection('BookingCollegeCourt');
+  final CollectionReference collegeCourtHistory = FirebaseFirestore.instance.collection('BookingCollegeCourt');
 
-  final CollectionReference FieldHistory =
-      FirebaseFirestore.instance.collection('BookingField');
+  final CollectionReference FieldHistory = FirebaseFirestore.instance.collection('BookingField');
 
-  final CollectionReference students =
-      FirebaseFirestore.instance.collection('Student');
+  final CollectionReference students = FirebaseFirestore.instance.collection('Student');
 
-  Future updateUserData(
-      String fullname, String username, String contact) async {
+  final CollectionReference status = FirebaseFirestore.instance.collection('Status');
+
+  Future updateUserData(String fullname, String username, String contact, String usertype, String email, String uid) async {
     return await userProfile.doc(uid).set({
+      'uid': uid,
       'fullname': fullname,
       'username': username,
       'contact': contact,
+      'userType': usertype,
+      'email': email,
     });
   }
 
   List<Profile> _profileListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return Profile(
-          username: doc.data()['username'] ?? '',
-          fullname: doc.data()['fullname'] ?? '',
-          contact: doc.data()['contact'] ?? '');
+      return Profile(username: doc.data()['username'] ?? '', fullname: doc.data()['fullname'] ?? '', contact: doc.data()['contact'] ?? '');
     }).toList();
   }
 
   // userData from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
-        uid: uid,
-        fullname: snapshot.data()['fullname'],
-        username: snapshot.data()['username'],
-        contact: snapshot.data()['contact']);
+    return UserData(uid: uid, fullname: snapshot.data()['fullname'], username: snapshot.data()['username'], contact: snapshot.data()['contact']);
   }
 
   Stream<List<Profile>> get profile {
@@ -70,10 +59,7 @@ class DatabaseService {
   //Sporthall booking list
   List<SporthallBooking> _sporthallListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return SporthallBooking(
-          selectedHall: doc.data()['selectedHall'] ?? '',
-          selectedBookingdate: doc.data()['selectedBookingdate'] ?? '',
-          selectedSlot: doc.data()['selectedSlot'] ?? '');
+      return SporthallBooking(selectedHall: doc.data()['selectedHall'] ?? '', selectedBookingdate: doc.data()['selectedBookingdate'] ?? '', selectedSlot: doc.data()['selectedSlot'] ?? '');
     }).toList();
   }
 
@@ -82,13 +68,9 @@ class DatabaseService {
   }
 
   //College court booking list
-  List<CollegeCourtBooking> _collegeCourtListFromSnapshot(
-      QuerySnapshot snapshot) {
+  List<CollegeCourtBooking> _collegeCourtListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return CollegeCourtBooking(
-          selectedCourt: doc.data()['selectedCourt'] ?? '',
-          selectedBookingdate: doc.data()['selectedBookingdate'] ?? '',
-          selectedSlot: doc.data()['selectedSlot'] ?? '');
+      return CollegeCourtBooking(selectedCourt: doc.data()['selectedCourt'] ?? '', selectedBookingdate: doc.data()['selectedBookingdate'] ?? '', selectedSlot: doc.data()['selectedSlot'] ?? '');
     }).toList();
   }
 
@@ -99,10 +81,7 @@ class DatabaseService {
   //Field booking list
   List<FieldBooking> _fieldListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return FieldBooking(
-          selectedField: doc.data()['selectedField'] ?? '',
-          selectedBookingdate: doc.data()['selectedBookingdate'] ?? '',
-          selectedSlot: doc.data()['selectedSlot'] ?? '');
+      return FieldBooking(selectedField: doc.data()['selectedField'] ?? '', selectedBookingdate: doc.data()['selectedBookingdate'] ?? '', selectedSlot: doc.data()['selectedSlot'] ?? '');
     }).toList();
   }
 
@@ -113,10 +92,7 @@ class DatabaseService {
   //Student list
   List<Student> _studentListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return Student(
-          name: doc.data()['name'] ?? '',
-          age: doc.data()['age'] ?? '',
-          classroom: doc.data()['classroom'] ?? '');
+      return Student(name: doc.data()['name'] ?? '', age: doc.data()['age'] ?? '', classroom: doc.data()['classroom'] ?? '');
     }).toList();
   }
 
@@ -131,10 +107,7 @@ class DatabaseService {
 
   Future<String> getSporthallCount() async {
     var length = 0;
-    await FirebaseFirestore.instance
-        .collection('Sporthall')
-        .get()
-        .then((myDocuments) {
+    await FirebaseFirestore.instance.collection('Sporthall').get().then((myDocuments) {
       print("${myDocuments.docs.length}");
       length = myDocuments.docs.length;
     });

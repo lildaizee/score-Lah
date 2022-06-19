@@ -1,24 +1,23 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sporthall_booking_system/Screen/Admin/status.dart';
-import 'package:sporthall_booking_system/Screen/Admin/student.dart';
+import 'package:provider/provider.dart';
+import 'package:sporthall_booking_system/Model/UserModel.dart';
+import 'package:sporthall_booking_system/Screen/Admin/StatusScreen.dart';
 import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
 import 'package:sporthall_booking_system/Screen/Booking/display_student.dart';
-import 'package:sporthall_booking_system/Screen/Booking/student_record.dart';
 import 'package:sporthall_booking_system/Screen/Homepage/home.dart';
+import 'package:sporthall_booking_system/Screen/Student/AddStudent.dart';
+import 'package:sporthall_booking_system/providers/AuthServiceProvider.dart';
+
 import 'UserProfile/profile.dart';
 
 //import '../Login/login_screen.dart';
 
 class SideDrawer extends StatelessWidget {
-  // final User user = await FirebaseAuth.instance.currentUser.email == null;
-  // final userid = user.userid;
-  String email = FirebaseAuth.instance.currentUser.email == null
-      ? FirebaseAuth.instance.currentUser.phoneNumber
-      : FirebaseAuth.instance.currentUser.email;
   @override
   Widget build(BuildContext context) {
+    UserModel user = context.watch<AuthServiceProvider>().getUserData;
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -37,14 +36,10 @@ class SideDrawer extends StatelessWidget {
           Card(
             child: ListTile(
               leading: Icon(Icons.account_circle_sharp),
-              title: Text('Hello $email'),
+              title: Text('Hello ' + user.fullname ?? ''),
               onTap: () {
                 var firebaseUser = FirebaseAuth.instance.currentUser;
-                FirebaseFirestore.instance
-                    .collection("Users")
-                    .doc(firebaseUser.uid)
-                    .get()
-                    .then((value) {
+                FirebaseFirestore.instance.collection("Users").doc(firebaseUser.uid).get().then((value) {
                   print(value.data().length);
                 });
               },
@@ -61,20 +56,23 @@ class SideDrawer extends StatelessWidget {
                       ),
                     }),
           ),
-
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.account_box),
-              title: Text('Add Student'),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  //MaterialPageRoute(builder: (context) => BookingHistory()),
-                  MaterialPageRoute(builder: (context) => Booking()),
-                ),
-              },
-            ),
-          ),
+          user == null
+              ? SizedBox()
+              : user.userType == 'Parent'
+                  ? SizedBox()
+                  : Card(
+                      child: ListTile(
+                        leading: Icon(Icons.account_box),
+                        title: Text('Add Student'),
+                        onTap: () => {
+                          Navigator.pushReplacement(
+                            context,
+                            //MaterialPageRoute(builder: (context) => BookingHistory()),
+                            MaterialPageRoute(builder: (context) => AddStudent()),
+                          ),
+                        },
+                      ),
+                    ),
           Card(
             child: ListTile(
               leading: Icon(Icons.receipt_rounded),
@@ -91,12 +89,12 @@ class SideDrawer extends StatelessWidget {
           Card(
             child: ListTile(
               leading: Icon(Icons.receipt_rounded),
-              title: Text('Add Status'),
+              title: Text('View Status'),
               onTap: () => {
                 Navigator.push(
                   context,
                   //MaterialPageRoute(builder: (context) => BookingHistory()),
-                  MaterialPageRoute(builder: (context) => addStatus()),
+                  MaterialPageRoute(builder: (context) => StatusScreen()),
                 ),
               },
             ),
@@ -125,17 +123,17 @@ class SideDrawer extends StatelessWidget {
                       ),
                     }),
           ),
-          Card(
-            child: ListTile(
-                leading: Icon(Icons.assignment_ind_outlined),
-                title: Text('Update Status'),
-                onTap: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Booking()),
-                      ),
-                    }),
-          ),
+          // Card(
+          //   child: ListTile(
+          //       leading: Icon(Icons.assignment_ind_outlined),
+          //       title: Text('Update Status'),
+          //       onTap: () => {
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => Booking()),
+          //             ),
+          //           }),
+          // ),
           // Padding(
           //   padding: const EdgeInsets.only(
           //       left: 60.0, right: 60.0, top: 300, bottom: 40),

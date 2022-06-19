@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sporthall_booking_system/Screen/InDevelopment/Maintenance.dart';
+import 'package:sporthall_booking_system/Screen/StudentClass/StudentClassScreen.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -8,8 +8,7 @@ class Dashboard extends StatefulWidget {
 }
 
 countDocuments() async {
-  QuerySnapshot _myDoc =
-      await FirebaseFirestore.instance.collection('Sporthall').get();
+  QuerySnapshot _myDoc = await FirebaseFirestore.instance.collection('Sporthall').get();
   List<DocumentSnapshot> _myDocCount = _myDoc.docs;
   int length = (_myDocCount.length);
   print(length);
@@ -27,10 +26,7 @@ class _DashboardState extends State<Dashboard> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                 child: Center(
-                  child: Container(
-                      width: 500,
-                      height: 150,
-                      child: Image.asset('assets/images/Logo.png')),
+                  child: Container(width: 500, height: 150, child: Image.asset('assets/images/Logo.png')),
                 ),
               ),
             ),
@@ -47,32 +43,25 @@ class _DashboardState extends State<Dashboard> {
                   children: <Widget>[
                     ListTile(
                       leading: Icon(Icons.class__outlined, size: 60),
-                      title: Text('En Shakespear',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('Class for 4 years old',
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
+                      title: Text('En Shakespear', style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text('Class for 4 years old', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Container(
                         height: 30,
                         width: 120,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 83, 113, 197),
-                            borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: Color.fromARGB(255, 83, 113, 197), borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
-                          child: const Text('Go to class',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('Go to class', style: TextStyle(color: Colors.white)),
                           onPressed: () {
                             Navigator.push(
                               context,
-                              // MaterialPageRoute(builder: (context) => Sporthall()),
                               MaterialPageRoute(
-                                  builder: (context) => UnderMaintenance()),
+                                builder: (context) => StudentClassScreen(
+                                  age: '4',
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -99,32 +88,25 @@ class _DashboardState extends State<Dashboard> {
                   children: <Widget>[
                     const ListTile(
                       leading: Icon(Icons.class__outlined, size: 60),
-                      title: Text('En Einstein',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('Class for 5 years old',
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
+                      title: Text('En Einstein', style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text('Class for 5 years old', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Container(
                         height: 30,
                         width: 120,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 83, 113, 197),
-                            borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: Color.fromARGB(255, 83, 113, 197), borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
-                          child: const Text('Go to class',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('Go to class', style: TextStyle(color: Colors.white)),
                           onPressed: () {
                             Navigator.push(
                               context,
-                              //MaterialPageRoute(builder: (context) => CollegeCourt()),
                               MaterialPageRoute(
-                                  builder: (context) => UnderMaintenance()),
+                                builder: (context) => StudentClassScreen(
+                                  age: '5',
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -151,32 +133,25 @@ class _DashboardState extends State<Dashboard> {
                   children: <Widget>[
                     const ListTile(
                       leading: Icon(Icons.class__outlined, size: 60),
-                      title: Text('En Owens',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('Class for 6 years old',
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
+                      title: Text('En Owens', style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Text('Class for 6 years old', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20),
                       child: Container(
                         height: 30,
                         width: 120,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 83, 113, 197),
-                            borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: Color.fromARGB(255, 83, 113, 197), borderRadius: BorderRadius.circular(20)),
                         child: FlatButton(
-                          child: const Text('Go to class',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('Go to class', style: TextStyle(color: Colors.white)),
                           onPressed: () {
                             Navigator.push(
                               context,
-                              //MaterialPageRoute(builder: (context) => Field()),
                               MaterialPageRoute(
-                                  builder: (context) => UnderMaintenance()),
+                                builder: (context) => StudentClassScreen(
+                                  age: '6',
+                                ),
+                              ),
                             );
                           },
                         ),

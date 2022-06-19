@@ -1,18 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sporthall_booking_system/Screen/Booking/booking.dart';
-import 'package:sporthall_booking_system/Screen/CollegeCourt/updateCollegeCourt.dart';
-import 'package:sporthall_booking_system/Screen/InDevelopment/Maintenance.dart';
-import 'package:sporthall_booking_system/Screen/Sporthall/sporthall.dart';
-import 'package:sporthall_booking_system/Screen/CollegeCourt/collegeCourt.dart';
-import 'package:sporthall_booking_system/Screen/Field/field.dart';
-import 'package:sporthall_booking_system/Screen/Sporthall/updateSporthall.dart';
-import 'package:sporthall_booking_system/Screen/Field/updateField.dart';
+import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+import 'package:sporthall_booking_system/Model/StudentModel.dart';
+import 'package:sporthall_booking_system/Screen/Student/component/crudStudentBody.dart';
 import 'package:sporthall_booking_system/Screen/drawer.dart';
 import 'package:sporthall_booking_system/Screen/widgets/app_bar.dart';
-import 'package:sporthall_booking_system/Services/auth_provider.dart';
-import 'package:sporthall_booking_system/Screen/AuthScreen/login.dart';
+import 'package:sporthall_booking_system/providers/AuthServiceProvider.dart';
+import 'package:sporthall_booking_system/providers/StudentServiceProvider.dart';
 
 class DisplayStudent extends StatefulWidget {
   @override
@@ -27,653 +21,175 @@ class _DisplayStudentState extends State<DisplayStudent> {
   @override
   Widget build(BuildContext context) {
     //return SafeArea(
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Student Record',
-      ),
-      //children: Column(children: <Widget>[
-      body: Column(children: <Widget>[
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
-            //     child: Center(
-            //       child: Container(
-            //           width: 500, height: 150, child: Image.asset('Images/Logo.png')),
+    return SafeArea(
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: 'Student Record',
+        ),
+        body: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: StreamBuilder(
+                  stream: context.watch<StudentServiceProvider>().getListStudent(),
+                  builder: (context, AsyncSnapshot<List<StudentModel>> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Text('No student records');
+                    }
+                    if (snapshot.hasError) {
+                      return Text('Error occured');
+                    }
+                    List<StudentModel> student = snapshot.data;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: student.length,
+                      itemBuilder: (context, index) {
+                        StudentModel s = student[index];
+                        return Container(
+                          margin: EdgeInsets.only(
+                            top: index == 0 ? 20 : 10,
+                            bottom: index == student.length - 1 ? 20 : 0,
+                            left: 20,
+                            right: 20,
+                          ),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: Colors.blue.shade100,
+                            elevation: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 10,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.article_outlined,
+                                        size: 60,
+                                      ),
+                                      Gap(20),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text('Name: ${s.fullname}'),
+                                            Gap(5),
+                                            Text('Age : ' + s.age),
+                                            Gap(5),
+                                            Text('Classroom : ' + s.classroom),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Gap(10),
+                                  context.watch<AuthServiceProvider>().getUserData.userType == 'Parent'
+                                      ? SizedBox()
+                                      : Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (newcontext) {
+                                                      return AlertDialog(
+                                                        title: Text('Delete warning'),
+                                                        content: Text('Delete this student?'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              Navigator.of(newcontext).pop();
+                                                            },
+                                                            style: ElevatedButton.styleFrom(
+                                                              primary: Colors.grey,
+                                                            ),
+                                                            child: Text('Cancel'),
+                                                          ),
+                                                          ElevatedButton(
+                                                            onPressed: () async {
+                                                              await context.read<StudentServiceProvider>().deleteStudent(s.uid).then((value) {
+                                                                if (value) {
+                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Successfully deleted')));
+                                                                } else {
+                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Successfully deleted')));
+                                                                }
+                                                                Navigator.of(newcontext).pop();
+                                                              });
+                                                            },
+                                                            style: ElevatedButton.styleFrom(
+                                                              primary: Colors.red,
+                                                            ),
+                                                            child: Text('Delete'),
+                                                          ),
+                                                        ],
+                                                        actionsAlignment: MainAxisAlignment.center,
+                                                      );
+                                                    });
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.red,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                              child: Text('Delete'),
+                                            ),
+                                            Gap(15),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (newcontext) {
+                                                      return Scaffold(
+                                                        appBar: AppBar(
+                                                          title: Text(
+                                                            'Update Student',
+                                                          ),
+                                                        ),
+                                                        body: CrudStudentBody(
+                                                          age: s.age,
+                                                          name: s.fullname,
+                                                          classRoom: s.classroom,
+                                                          uid: s.uid,
+                                                        ),
+                                                      );
+                                                    });
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.green,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                              child: Text('Update'),
+                                            ),
+                                          ],
+                                        ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-        // ),
-        FutureBuilder(
-            future: _fetchSporthall(),
-            builder: (context, snapshot) {
-              if (hallSporthall != null) {
-                if (snapshot.connectionState != ConnectionState.done)
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                return new Container(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.blue.shade100,
-                    //height: 40,
-                    elevation: 10,
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      //countDocuments(),
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.article_outlined, size: 60),
-                          title: Text('1. Thalia Binti Mohd Naim',
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18)),
-                          subtitle: Text(
-                              '\nClass : $hallSporthall \nAge : $dateSporthall \nParent : $timeSporthall',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 16)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 10.0, bottom: 10.0, left: 30.0, right: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              new Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                              'Delete Thalia Binti Mohd Naim',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            content: Text(
-                                                'Are you sure you want to delete the student?'),
-                                            actions: [
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text(
-                                                    'Cancel',
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  )),
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    deleteSporthallRecord()
-                                                        .whenComplete(() =>
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          Booking()),
-                                                            ));
-                                                  },
-                                                  child: Text('Delete'))
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: Text(
-                                    'Delete',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                              new Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              UpdateSporthall()),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Update',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.blueGrey[200],
-                  //height: 40,
-                  elevation: 10,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.article_outlined, size: 60),
-                        title: Text('1. Thalia Binti Mohd Naim',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18)),
-                        subtitle: Text('\nNo data for Thalia Naim',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 16)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 10.0, bottom: 10.0, left: 30.0, right: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            new Container(
-                              height: 30,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UnderMaintenance()),
-                                  );
-                                },
-                                child: Text(
-                                  'Delete',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            }),
-        FutureBuilder(
-            future: _fetchCollegeCourt(),
-            builder: (context, snapshot) {
-              if (courtCollegeCourt != null) {
-                // if (snapshot.connectionState != ConnectionState.done)
-                //   return Center(
-                //     child: CircularProgressIndicator(),
-                //   );
-                return new Container(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.blue.shade100,
-                    //height: 40,
-                    elevation: 10,
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      //countDocuments(),
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.article_outlined, size: 60),
-                          title: Text('2. Mohd Anas bin Adnan',
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18)),
-                          subtitle: Text(
-                              '\nClass : $courtCollegeCourt \nAge : $dateCollegeCourt \nParent : $timeCollegeCourt',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 16)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 10.0, bottom: 10.0, left: 30.0, right: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              new Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                              'Delete Mohd Anas',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            content: Text(
-                                                'Are you sure you want to delete the student?'),
-                                            actions: [
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text(
-                                                    'Cancel',
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  )),
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    deleteCollegeCourtRecord()
-                                                        .whenComplete(() =>
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          Booking()),
-                                                            ));
-                                                  },
-                                                  child: Text('Delete'))
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: Text(
-                                    'Delete',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                              new Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              UpdateCollegeCourt()),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Update',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.blueGrey[200],
-                  //height: 40,
-                  elevation: 10,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.article_outlined, size: 60),
-                        title: Text('2. Mohd Anas Bin Adnan',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18)),
-                        subtitle: Text('\nNo data for Mohd Anas',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 16)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 10.0, bottom: 10.0, left: 30.0, right: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            new Container(
-                              height: 30,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UnderMaintenance()),
-                                  );
-                                },
-                                child: Text(
-                                  'Delete',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            }),
-        FutureBuilder(
-            future: _fetchField(),
-            builder: (context, snapshot) {
-              if (fieldField != null) {
-                return new Container(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.blue.shade100,
-                    //height: 40,
-                    elevation: 10,
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.article_outlined, size: 60),
-                          title: Text('3. Ali',
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18)),
-                          subtitle: Text(
-                              '\nClass : $fieldField \nAge : $dateField \nParent : $timeField',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 16)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 10.0, bottom: 10.0, left: 30.0, right: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              new Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                              'Delete Ali',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            content: Text(
-                                                'Are you sure you want to delete the student?'),
-                                            actions: [
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text(
-                                                    'Cancel',
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  )),
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    deleteFieldRecord()
-                                                        .whenComplete(() =>
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          Booking()),
-                                                            ));
-                                                  },
-                                                  child: Text('Delete'))
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: Text(
-                                    'Delete',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                              new Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => UpdateField()),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Update',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.blueGrey[200],
-                  //height: 40,
-                  elevation: 10,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.article_outlined, size: 60),
-                        title: Text('3. Ali',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18)),
-                        subtitle: Text('\nNo data for Ali',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 16)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 10.0, bottom: 10.0, left: 30.0, right: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            new Container(
-                              height: 30,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UnderMaintenance()),
-                                  );
-                                },
-                                child: Text(
-                                  'Delete',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            }),
-      ]),
-      drawer: SideDrawer(),
+        drawer: SideDrawer(),
+      ),
     );
-  }
-
-  _fetchSporthall() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('BookingSporthall')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-        dateSporthall = ds.data()['selectedBookingdate'];
-        hallSporthall = ds.data()['selectedHall'];
-        timeSporthall = ds.data()['selectedSlot'];
-        print(dateSporthall);
-        print(hallSporthall);
-        print(timeSporthall);
-      }).catchError((e) {
-        print(e);
-      });
-    } else {
-      return print('No data was inserted');
-    }
-  }
-
-  _fetchCollegeCourt() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('BookingCollegeCourt')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-        dateCollegeCourt = ds.data()['selectedBookingdate'];
-        courtCollegeCourt = ds.data()['selectedCourt'];
-        timeCollegeCourt = ds.data()['selectedSlot'];
-        print(dateCollegeCourt);
-        print(courtCollegeCourt);
-        print(timeCollegeCourt);
-      }).catchError((e) {
-        print(e);
-      });
-    } else {
-      return print('No data was inserted');
-    }
-  }
-
-  _fetchField() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('BookingField')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-        dateField = ds.data()['selectedBookingdate'];
-        fieldField = ds.data()['selectedField'];
-        timeField = ds.data()['selectedSlot'];
-        print(dateField);
-        print(fieldField);
-        print(timeField);
-      }).catchError((e) {
-        print(e);
-      });
-    } else {
-      return print('No data was inserted');
-    }
-  }
-
-  deleteSporthallRecord() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('BookingSporthall')
-          .doc(firebaseUser.uid)
-          .delete();
-    } else {
-      return print('failed to delete');
-    }
-  }
-
-  deleteCollegeCourtRecord() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('BookingCollegeCourt')
-          .doc(firebaseUser.uid)
-          .delete();
-    } else {
-      return print('failed to delete');
-    }
-  }
-}
-
-deleteFieldRecord() async {
-  final firebaseUser = await FirebaseAuth.instance.currentUser;
-  if (firebaseUser != null) {
-    await FirebaseFirestore.instance
-        .collection('BookingField')
-        .doc(firebaseUser.uid)
-        .delete();
-  } else {
-    return print('failed to delete');
   }
 }

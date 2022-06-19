@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sporthall_booking_system/Model/Users.dart';
 import 'package:sporthall_booking_system/Screen/splash.dart';
-import 'package:sporthall_booking_system/Services/auth_provider.dart';
+import 'package:sporthall_booking_system/providers/AuthServiceProvider.dart';
+import 'package:sporthall_booking_system/providers/MediaServiceProvider.dart';
+import 'package:sporthall_booking_system/providers/StatusServiceProvider.dart';
+import 'package:sporthall_booking_system/providers/StudentServiceProvider.dart';
+import 'package:sporthall_booking_system/providers/constant.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,9 +17,13 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<Users>.value(
-      value: AuthClass().user,
-      initialData: Users(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthServiceProvider>.value(value: authServiceProvider),
+        ChangeNotifierProvider<StudentServiceProvider>.value(value: studentServiceProvider),
+        ChangeNotifierProvider<MediaServiceProvider>.value(value: mediaServiceProvider),
+        ChangeNotifierProvider<StatusServiceProvider>.value(value: statusServiceProvider),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(backgroundColor: Colors.purple[50]),
@@ -38,7 +45,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       // Initialize FlutterFire:
-      future: _initialization,
+      future: _initialization.then(
+        (value) => context.read<AuthServiceProvider>().initialize(),
+      ),
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {

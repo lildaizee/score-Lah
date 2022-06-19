@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sporthall_booking_system/Screen/AuthScreen/login.dart';
-import 'package:sporthall_booking_system/Services/auth_provider.dart';
+import 'package:sporthall_booking_system/providers/AuthServiceProvider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -24,14 +25,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     content: Text('Are you sure to log out?'),
                     actions: [
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
                         onPressed: () {
                           Navigator.pop(ctxt);
                         },
                         child: Text('Cancel'),
                       ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
                         onPressed: () {
-                          AuthClass().signOut();
+                          context.read<AuthServiceProvider>().signOut();
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -42,7 +54,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         child: Text('Proceed'),
                       ),
                     ],
-                    actionsAlignment: MainAxisAlignment.spaceEvenly,
+                    actionsAlignment: MainAxisAlignment.center,
                   );
                 });
           },
