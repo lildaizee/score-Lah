@@ -36,10 +36,14 @@ class SideDrawer extends StatelessWidget {
           Card(
             child: ListTile(
               leading: Icon(Icons.account_circle_sharp),
-              title: Text('Hello ' + user.fullname ?? ''),
+              title: Text('Hello. Welcome back ' + user.fullname ?? ''),
               onTap: () {
                 var firebaseUser = FirebaseAuth.instance.currentUser;
-                FirebaseFirestore.instance.collection("Users").doc(firebaseUser.uid).get().then((value) {
+                FirebaseFirestore.instance
+                    .collection("Users")
+                    .doc(firebaseUser.uid)
+                    .get()
+                    .then((value) {
                   print(value.data().length);
                 });
               },
@@ -68,7 +72,8 @@ class SideDrawer extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             //MaterialPageRoute(builder: (context) => BookingHistory()),
-                            MaterialPageRoute(builder: (context) => AddStudent()),
+                            MaterialPageRoute(
+                                builder: (context) => AddStudent()),
                           ),
                         },
                       ),
@@ -115,7 +120,7 @@ class SideDrawer extends StatelessWidget {
           Card(
             child: ListTile(
                 leading: Icon(Icons.assignment_ind_outlined),
-                title: Text('View Profile'),
+                title: Text('Profile'),
                 onTap: () => {
                       Navigator.push(
                         context,
