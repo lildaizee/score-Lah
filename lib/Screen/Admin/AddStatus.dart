@@ -35,7 +35,7 @@ class _AddStatusState extends State<AddStatus> {
               children: [
                 Gap(20),
                 widget.statusPhoto.isEmpty
-                    ? Text('No Image')
+                    ? Text('No Image Attached')
                     : CarouselSlider(
                         items: widget.statusPhoto.map((e) {
                           return Container(
@@ -74,7 +74,8 @@ class _AddStatusState extends State<AddStatus> {
                     ),
                     maxLines: 3,
                     maxLength: 200,
-                    validator: (val) => val == '' ? 'Please enter a caption' : null,
+                    validator: (val) =>
+                        val == '' ? 'Please enter a caption' : null,
                   ),
                 ),
                 Gap(20),
@@ -82,18 +83,24 @@ class _AddStatusState extends State<AddStatus> {
                   onPressed: () {
                     if (_key.currentState.validate()) {
                       StatusModel statusModel = StatusModel(
-                        uploaderID: context.read<AuthServiceProvider>().getUserID,
+                        uploaderID:
+                            context.read<AuthServiceProvider>().getUserID,
                         caption: captionController.text.trim(),
                         picture: widget.statusPhoto,
                         comments: [],
                       );
 
-                      context.read<StatusServiceProvider>().uploadStatus(statusModel).then((value) {
+                      context
+                          .read<StatusServiceProvider>()
+                          .uploadStatus(statusModel)
+                          .then((value) {
                         if (value) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Status Uploaded')));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Status Uploaded')));
                           return Navigator.of(context).pop();
                         }
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Status upload failed')));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Status upload failed')));
                         return Navigator.of(context).pop();
                       });
                     }
