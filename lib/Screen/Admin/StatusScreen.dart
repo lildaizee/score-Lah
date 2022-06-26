@@ -33,13 +33,15 @@ class _StatusScreenState extends State<StatusScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Status"),
+          title: Text("Daily Status"),
           actions: [
             context.read<AuthServiceProvider>().getUserData.userType == 'Parent'
                 ? SizedBox()
                 : IconButton(
                     onPressed: () async {
-                      List<String> statusPhoto = await MediaServiceProvider.selectStatusPhotos(context: context);
+                      List<String> statusPhoto =
+                          await MediaServiceProvider.selectStatusPhotos(
+                              context: context);
                       if (statusPhoto.isNotEmpty ?? false) {
                         await showDialog(
                             context: context,
@@ -49,7 +51,8 @@ class _StatusScreenState extends State<StatusScreen> {
                               );
                             });
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No image selected')));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('No image selected')));
                       }
                     },
                     icon: Icon(
@@ -63,7 +66,7 @@ class _StatusScreenState extends State<StatusScreen> {
           builder: (context, AsyncSnapshot<List<StatusModel>> snapshot) {
             if (!snapshot.hasData || snapshot.data.isEmpty) {
               return Center(
-                child: Text('No status at the moment'),
+                child: Text('No status at the moment!'),
               );
             }
             List<StatusModel> stat = snapshot.data;
@@ -117,7 +120,8 @@ class _StatusScreenState extends State<StatusScreen> {
                             }).toList(),
                             options: CarouselOptions(
                                 viewportFraction: 1.0,
-                                enableInfiniteScroll: sm.picture.length == 1 ? false : true,
+                                enableInfiniteScroll:
+                                    sm.picture.length == 1 ? false : true,
                                 enlargeCenterPage: false,
                                 onPageChanged: (index, reason) {
                                   setState(() {
@@ -125,7 +129,11 @@ class _StatusScreenState extends State<StatusScreen> {
                                   });
                                 }),
                           ),
-                          context.read<AuthServiceProvider>().getUserData.userType == 'Parent'
+                          context
+                                      .read<AuthServiceProvider>()
+                                      .getUserData
+                                      .userType ==
+                                  'Parent'
                               ? SizedBox()
                               : Positioned(
                                   top: 0,
@@ -148,18 +156,41 @@ class _StatusScreenState extends State<StatusScreen> {
                                                   title: Text('Edit caption'),
                                                   content: TextFormField(
                                                     autofocus: true,
-                                                    controller: _captionController,
-                                                    decoration: InputDecoration(hintText: 'Enter new caption'),
-                                                    validator: (val) => val == '' ? 'Please enter new caption' : null,
+                                                    controller:
+                                                        _captionController,
+                                                    decoration: InputDecoration(
+                                                        hintText:
+                                                            'Enter new caption'),
+                                                    validator: (val) => val ==
+                                                            ''
+                                                        ? 'Please enter new caption'
+                                                        : null,
                                                   ),
                                                   actions: [
                                                     TextButton(
                                                       onPressed: () {
-                                                        if (_key.currentState.validate()) {
-                                                          context.read<StatusServiceProvider>().editStatus(sm.statusID, _captionController.text.trim()).then((value) {
-                                                            _captionController.clear();
-                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Status Updated')));
-                                                            Navigator.of(context).pop();
+                                                        if (_key.currentState
+                                                            .validate()) {
+                                                          context
+                                                              .read<
+                                                                  StatusServiceProvider>()
+                                                              .editStatus(
+                                                                  sm.statusID,
+                                                                  _captionController
+                                                                      .text
+                                                                      .trim())
+                                                              .then((value) {
+                                                            _captionController
+                                                                .clear();
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                                        content:
+                                                                            Text('Status Updated')));
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
                                                           });
                                                         }
                                                       },
@@ -175,29 +206,49 @@ class _StatusScreenState extends State<StatusScreen> {
                                             context: context,
                                             builder: (newContext) {
                                               return AlertDialog(
-                                                title: Text('Delete confirmation'),
-                                                content: Text('Are you sure to delete this status?'),
-                                                actionsAlignment: MainAxisAlignment.center,
+                                                title:
+                                                    Text('Delete confirmation'),
+                                                content: Text(
+                                                    'Are you sure to delete this status?'),
+                                                actionsAlignment:
+                                                    MainAxisAlignment.center,
                                                 actions: [
                                                   ElevatedButton(
                                                     onPressed: () {
-                                                      Navigator.of(newContext).pop();
+                                                      Navigator.of(newContext)
+                                                          .pop();
                                                     },
-                                                    style: ElevatedButton.styleFrom(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
                                                       primary: Colors.grey,
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(20),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
                                                       ),
                                                     ),
                                                     child: Text('Cancel'),
                                                   ),
                                                   ElevatedButton(
                                                     onPressed: () {
-                                                      context.read<StatusServiceProvider>().deleteStatus(sm.statusID).then((value) => Navigator.of(newContext).pop());
+                                                      context
+                                                          .read<
+                                                              StatusServiceProvider>()
+                                                          .deleteStatus(
+                                                              sm.statusID)
+                                                          .then((value) =>
+                                                              Navigator.of(
+                                                                      newContext)
+                                                                  .pop());
                                                     },
-                                                    style: ElevatedButton.styleFrom(
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(20),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
                                                       ),
                                                     ),
                                                     child: Text('Proceed'),
@@ -207,7 +258,8 @@ class _StatusScreenState extends State<StatusScreen> {
                                             });
                                       }
                                     },
-                                    itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                                    itemBuilder: (BuildContext context) =>
+                                        <PopupMenuEntry<Menu>>[
                                       PopupMenuItem<Menu>(
                                         value: Menu.edit,
                                         child: Text('Edit'),
@@ -229,7 +281,9 @@ class _StatusScreenState extends State<StatusScreen> {
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +295,15 @@ class _StatusScreenState extends State<StatusScreen> {
                                   width: 8.0,
                                   height: 8.0,
                                   margin: EdgeInsets.symmetric(horizontal: 4.0),
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black).withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: (Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black)
+                                          .withOpacity(_current == entry.key
+                                              ? 0.9
+                                              : 0.4)),
                                 );
                               }).toList(),
                             ),
@@ -263,7 +325,8 @@ class _StatusScreenState extends State<StatusScreen> {
                                     ),
                                   )
                                 : SizedBox(
-                                    height: MediaQuery.of(context).size.height * (sm.comments.length > 1 ? 0.2 : 0.1),
+                                    height: MediaQuery.of(context).size.height *
+                                        (sm.comments.length > 1 ? 0.2 : 0.1),
                                     child: ListView.builder(
                                       physics: BouncingScrollPhysics(),
                                       itemCount: sm.comments.length,
@@ -274,13 +337,16 @@ class _StatusScreenState extends State<StatusScreen> {
                                           margin: EdgeInsets.only(
                                             top: index == 0 ? 0 : 5,
                                           ),
-                                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 10),
                                           decoration: BoxDecoration(
                                             // border: Border.all(),
-                                            borderRadius: BorderRadius.circular(30),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
                                           ),
                                           child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               CircleAvatar(
                                                 child: Icon(
@@ -290,13 +356,15 @@ class _StatusScreenState extends State<StatusScreen> {
                                               Gap(10),
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       comment.fullname,
                                                       style: TextStyle(
                                                         fontSize: 15,
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                     Gap(3),
@@ -375,15 +443,23 @@ class _CommentBoxState extends State<CommentBox> {
                       if (_key.currentState.validate()) {
                         Comment comment = Comment(
                           uid: context.read<AuthServiceProvider>().getUserID,
-                          fullname: context.read<AuthServiceProvider>().getUserData.fullname,
+                          fullname: context
+                              .read<AuthServiceProvider>()
+                              .getUserData
+                              .fullname,
                           timeCreated: DateTime.now().toString(),
                           comment: _commentController.text.trim(),
                         );
-                        context.read<StatusServiceProvider>().addComment(widget.statusModel, comment).then((value) => _commentController.clear());
+                        context
+                            .read<StatusServiceProvider>()
+                            .addComment(widget.statusModel, comment)
+                            .then((value) => _commentController.clear());
                       }
                     },
                   ),
-                  border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(30))),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
                   fillColor: Colors.grey[200],
                   contentPadding: EdgeInsets.only(
                     left: 20,
